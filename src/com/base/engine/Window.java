@@ -24,7 +24,7 @@ public class Window {
 		Display.destroy();
 	}
 	
-	public static boolean isClosedRequested() {
+	public static boolean isCloseRequested() {
 		return Display.isCloseRequested();
 	}
 	

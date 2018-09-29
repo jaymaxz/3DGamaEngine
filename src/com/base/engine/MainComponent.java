@@ -43,7 +43,8 @@ public class MainComponent {
 			frameCounter += passedTime;
 			while(unprocessedTime>frameTime) {
 				render = true;
-				if(Window.isClosedRequested())
+				unprocessedTime -= frameTime;
+				if(Window.isCloseRequested())
 					stop();
 				game.input();
 				game.update();
