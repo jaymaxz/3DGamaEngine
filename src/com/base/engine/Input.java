@@ -9,9 +9,11 @@ public class Input
 {
 	public static final int NUM_KEYCODES = 256;
 	public static final int NUM_MOUSEBUTTONS = 5;
+	
 	private static ArrayList<Integer> currentKeys = new ArrayList<Integer>();
 	private static ArrayList<Integer> downKeys = new ArrayList<Integer>();
 	private static ArrayList<Integer> upKeys = new ArrayList<Integer>();
+	
 	private static ArrayList<Integer> currentMouse = new ArrayList<Integer>();
 	private static ArrayList<Integer> downMouse = new ArrayList<Integer>();
 	private static ArrayList<Integer> upMouse = new ArrayList<Integer>();
@@ -19,27 +21,38 @@ public class Input
 	public static void update()
 	{
 		upMouse.clear();
-		for(int i=0; i<NUM_MOUSEBUTTONS; i++) 
+		
+		for(int i = 0; i < NUM_MOUSEBUTTONS; i++)
 			if(!getMouse(i) && currentMouse.contains(i))
 				upMouse.add(i);
+		
 		downMouse.clear();
-		for(int i=0; i<NUM_MOUSEBUTTONS; i++) 
+		
+		for(int i = 0; i < NUM_MOUSEBUTTONS; i++)
 			if(getMouse(i) && !currentMouse.contains(i))
 				downMouse.add(i);
+		
 		upKeys.clear();
-		for(int i=0; i<NUM_KEYCODES; i++) 
+		
+		for(int i = 0; i < NUM_KEYCODES; i++)
 			if(!getKey(i) && currentKeys.contains(i))
 				upKeys.add(i);
+		
 		downKeys.clear();
-		for(int i=0; i<NUM_KEYCODES; i++) 
+		
+		for(int i = 0; i < NUM_KEYCODES; i++)
 			if(getKey(i) && !currentKeys.contains(i))
 				downKeys.add(i);
+		
 		currentKeys.clear();
-		for(int i=0; i<NUM_KEYCODES; i++) 
+		
+		for(int i = 0; i < NUM_KEYCODES; i++)
 			if(getKey(i))
 				currentKeys.add(i);
+		
 		currentMouse.clear();
-		for(int i=0; i<NUM_MOUSEBUTTONS; i++) 
+		
+		for(int i = 0; i < NUM_MOUSEBUTTONS; i++)
 			if(getMouse(i))
 				currentMouse.add(i);
 	}
@@ -51,8 +64,7 @@ public class Input
 	
 	public static boolean getKeyDown(int keyCode)
 	{
-		return downKeys.contains(keyCode); 
-		
+		return downKeys.contains(keyCode);
 	}
 	
 	public static boolean getKeyUp(int keyCode)
@@ -77,6 +89,6 @@ public class Input
 	
 	public static Vector2f getMousePosition()
 	{
-		return new Vector2f(Mouse.getX(),Mouse.getY());
+		return new Vector2f(Mouse.getX(), Mouse.getY());
 	}
 }
