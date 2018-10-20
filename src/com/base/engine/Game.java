@@ -10,11 +10,17 @@ public class Game
 		mesh = new Mesh();
 		shader = new Shader();
 		
-		Vertex[] data = new Vertex[] {new Vertex(new Vector3f(-1,-1,0)),
+		Vertex[] vertices = new Vertex[] {new Vertex(new Vector3f(-1,-1,0)),
 									  new Vertex(new Vector3f(0,1,0)),
-									  new Vertex(new Vector3f(1,-1,0))};
+									  new Vertex(new Vector3f(1,-1,0)),
+									  new Vertex(new Vector3f(0,-1,1))};
 		
-		mesh.addVertices(data);
+		int[] indices = new int[] {0,1,3,
+								   3,1,2,
+								   2,1,0,
+								   0,2,3};
+		
+		mesh.addVertices(vertices, indices);
 		
 		transform = new Transform();
 		
