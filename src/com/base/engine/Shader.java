@@ -8,7 +8,7 @@ import java.util.HashMap;
 public class Shader
 {
 	private int program;
-	private HashMap<String,Integer> uniforms;
+	private HashMap<String, Integer> uniforms;
 	
 	public Shader()
 	{
@@ -30,9 +30,10 @@ public class Shader
 	public void addUniform(String uniform)
 	{
 		int uniformLocation = glGetUniformLocation(program, uniform);
-		if(uniformLocation == 0xFFFFFFFF) 
+		
+		if(uniformLocation == 0xFFFFFFFF)
 		{
-			System.err.println("Error :  ould not find uniform; " + uniform);
+			System.err.println("Error: Could not find uniform: " + uniform);
 			new Exception().printStackTrace();
 			System.exit(1);
 		}
@@ -59,7 +60,7 @@ public class Shader
 	{
 		glLinkProgram(program);
 		
-		if(glGetProgrami(program, GL_LINK_STATUS) == 0)
+		if(glGetProgram(program, GL_LINK_STATUS) == 0)
 		{
 			System.err.println(glGetProgramInfoLog(program, 1024));
 			System.exit(1);
@@ -67,7 +68,7 @@ public class Shader
 		
 		glValidateProgram(program);
 		
-		if(glGetProgrami(program, GL_VALIDATE_STATUS) == 0)
+		if(glGetProgram(program, GL_VALIDATE_STATUS) == 0)
 		{
 			System.err.println(glGetProgramInfoLog(program, 1024));
 			System.exit(1);
@@ -87,7 +88,7 @@ public class Shader
 		glShaderSource(shader, text);
 		glCompileShader(shader);
 		
-		if(glGetShaderi(shader, GL_COMPILE_STATUS) == 0)
+		if(glGetShader(shader, GL_COMPILE_STATUS) == 0)
 		{
 			System.err.println(glGetShaderInfoLog(shader, 1024));
 			System.exit(1);
@@ -96,22 +97,22 @@ public class Shader
 		glAttachShader(program, shader);
 	}
 	
-	public void setUniformi(String uniformName, int value) 
+	public void setUniformi(String uniformName, int value)
 	{
 		glUniform1i(uniforms.get(uniformName), value);
 	}
 	
-	public void setUniformf(String uniformName, float value) 
+	public void setUniformf(String uniformName, float value)
 	{
 		glUniform1f(uniforms.get(uniformName), value);
 	}
 	
-	public void setUniform(String uniformName, Vector3f value) 
+	public void setUniform(String uniformName, Vector3f value)
 	{
 		glUniform3f(uniforms.get(uniformName), value.getX(), value.getY(), value.getZ());
 	}
 	
-	public void setUniform(String uniformName, Matrix4f value) 
+	public void setUniform(String uniformName, Matrix4f value)
 	{
 		glUniformMatrix4(uniforms.get(uniformName), true, Util.createFlippedBuffer(value));
 	}
