@@ -22,21 +22,72 @@ public class Camera
 		this(new Vector3f(0,0,0), new Vector3f(0,0,1), new Vector3f(0,1,0));
 	}
 	
+	public void input()
+	{
+		float movAmt = (float)(10*Time.getDelta());
+		float rotAmt = (float)(100*Time.getDelta());
+		
+		if(Input.getKey(Input.KEY_W))
+			move(getForward(), movAmt);
+		if(Input.getKey(Input.KEY_S))
+			move(getForward(), -movAmt);
+		if(Input.getKey(Input.KEY_A))
+			move(getLeft(), movAmt);
+		if(Input.getKey(Input.KEY_D))
+			move(getRight(), movAmt);
+		
+		if(Input.getKey(Input.KEY_UP))
+			rotateX(-rotAmt);
+		if(Input.getKey(Input.KEY_DOWN))
+			rotateX(rotAmt);
+		if(Input.getKey(Input.KEY_LEFT))
+			rotateY(-rotAmt);
+		if(Input.getKey(Input.KEY_RIGHT))
+			rotateY(rotAmt);
+	}
+	
 	public void move(Vector3f dir, float amt)
 	{
 		pos = pos.add(dir.mul(amt));
 	}
 	
+	public void rotateX(float angle)
+	{
+		Vector3f Haxis = yAxis.cross(forward);
+		Haxis.normalize();
+		
+		forward.rotate(angle, Haxis);
+		forward.normalize();
+		
+		up = forward.cross(Haxis);
+		up.normalize();
+	}
+	
+	
+	public void rotateY(float angle)
+	{
+		Vector3f Haxis = yAxis.cross(forward);
+		Haxis.normalize();
+		
+		forward.rotate(angle, yAxis);
+		forward.normalize();
+		
+		up = forward.cross(Haxis);
+		up.normalize();
+	}
+	
+	
+	
 	public Vector3f getLeft()
 	{
-		Vector3f left = up.cross(forward);
+		Vector3f left = forward.cross(up);
 		left.normalize();
 		return left;
 	}
 	
 	public Vector3f getRight()
 	{
-		Vector3f right = forward.cross(up);
+		Vector3f right = up.cross(forward);
 		right.normalize();
 		return right;
 	}
