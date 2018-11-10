@@ -36,6 +36,8 @@ public class Util
 			buffer.put(vertices[i].getPos().getX());
 			buffer.put(vertices[i].getPos().getY());
 			buffer.put(vertices[i].getPos().getZ());
+			buffer.put(vertices[i].getTexCoord().getX());
+			buffer.put(vertices[i].getTexCoord().getY());
 		}
 		
 		buffer.flip();
@@ -59,23 +61,24 @@ public class Util
 	public static String[] removeEmptyStrings(String[] data)
 	{
 		ArrayList<String> result = new ArrayList<String>();
-		for(int i=0; i<data.length; i++) {
+		
+		for(int i = 0; i < data.length; i++)
 			if(!data[i].equals(""))
 				result.add(data[i]);
-		}
 		
 		String[] res = new String[result.size()];
 		result.toArray(res);
+		
 		return res;
 	}
 	
 	public static int[] toIntArray(Integer[] data)
 	{
-		int[] results = new int[data.length];
+		int[] result = new int[data.length];
 		
-		for(int i=0; i<data.length;i++) {
-			results[i] = data[i].intValue();
-		}
-		return results;
+		for(int i = 0; i < data.length; i++)
+			result[i] = data[i].intValue();
+		
+		return result;
 	}
 }

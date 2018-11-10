@@ -1,11 +1,17 @@
 package com.base.engine;
 
-public class Camera 
+public class Camera
 {
 	public static final Vector3f yAxis = new Vector3f(0,1,0);
-	private Vector3f pos; 
+	
+	private Vector3f pos;
 	private Vector3f forward;
 	private Vector3f up;
+	
+	public Camera()
+	{
+		this(new Vector3f(0,0,0), new Vector3f(0,0,1), new Vector3f(0,1,0));
+	}
 	
 	public Camera(Vector3f pos, Vector3f forward, Vector3f up)
 	{
@@ -17,15 +23,10 @@ public class Camera
 		forward.normalize();
 	}
 
-	public Camera() 
-	{
-		this(new Vector3f(0,0,0), new Vector3f(0,0,1), new Vector3f(0,1,0));
-	}
-	
 	public void input()
 	{
-		float movAmt = (float)(10*Time.getDelta());
-		float rotAmt = (float)(100*Time.getDelta());
+		float movAmt = (float)(10 * Time.getDelta());
+		float rotAmt = (float)(100 * Time.getDelta());
 		
 		if(Input.getKey(Input.KEY_W))
 			move(getForward(), movAmt);
@@ -51,32 +52,27 @@ public class Camera
 		pos = pos.add(dir.mul(amt));
 	}
 	
-	public void rotateX(float angle)
-	{
-		Vector3f Haxis = yAxis.cross(forward);
-		Haxis.normalize();
-		
-		forward.rotate(angle, Haxis);
-		forward.normalize();
-		
-		up = forward.cross(Haxis);
-		up.normalize();
-	}
-	
-	
 	public void rotateY(float angle)
 	{
 		Vector3f Haxis = yAxis.cross(forward);
 		Haxis.normalize();
 		
-		forward.rotate(angle, yAxis);
-		forward.normalize();
+		forward = forward.rotate(angle, yAxis).normalize();
 		
 		up = forward.cross(Haxis);
 		up.normalize();
 	}
 	
-	
+	public void rotateX(float angle)
+	{
+		Vector3f Haxis = yAxis.cross(forward);
+		Haxis.normalize();
+		
+		forward = forward.rotate(angle, Haxis).normalize();
+		
+		up = forward.cross(Haxis);
+		up.normalize();
+	}
 	
 	public Vector3f getLeft()
 	{
@@ -92,28 +88,33 @@ public class Camera
 		return right;
 	}
 	
-	public Vector3f getPos() {
+	public Vector3f getPos()
+	{
 		return pos;
 	}
 
-	public void setPos(Vector3f pos) {
+	public void setPos(Vector3f pos)
+	{
 		this.pos = pos;
 	}
 
-	public Vector3f getForward() {
+	public Vector3f getForward()
+	{
 		return forward;
 	}
 
-	public void setForward(Vector3f forward) {
+	public void setForward(Vector3f forward)
+	{
 		this.forward = forward;
 	}
 
-	public Vector3f getUp() {
+	public Vector3f getUp()
+	{
 		return up;
 	}
 
-	public void setUp(Vector3f up) {
+	public void setUp(Vector3f up)
+	{
 		this.up = up;
 	}
-	
 }
